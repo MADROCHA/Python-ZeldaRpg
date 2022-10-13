@@ -16,6 +16,7 @@ class Game:
 
         self.level = Level()
 
+
     def run(self):
         last_time = time.time()
         while True:
