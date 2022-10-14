@@ -26,3 +26,10 @@ WORLD_MAP = [
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x'],
 ]
+
+weapon_data = {
+    'sword': {'coolsown': 100,'damage': 15,'graphic':'graphics/weapons/sword/full.png'},
+    'lance': {'coolsown': 400,'damage': 30,'graphic':'graphics/weapons/lance/full.png'},
+    'axe': {'coolsown': 300,'damage': 20,'graphic':'graphics/weapons/axe/full.png'},
+    'rapier': {'coolsown': 50,'damage': 8,'graphic':'graphics/weapons/rapier/full.png'},
+    'sai': {'coolsown': 80,'damage': 10,'graphic':'graphics/weapons/sai/full.png'}}
