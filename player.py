@@ -33,7 +33,6 @@ class Player(pygame.sprite.Sprite):
 
         self.can_switch_weapon = True
         self.weapon_switch_time = None
-        self.switch_duration_cooldown = 200
         #print(self.weapon)
 
         # magic
@@ -42,6 +41,8 @@ class Player(pygame.sprite.Sprite):
         self.can_switch_magic = True
         self.magic_switch_time = None
 
+        # magic
+        self.switch_duration_cooldown = 200
         
 
         # stats
@@ -93,6 +94,7 @@ class Player(pygame.sprite.Sprite):
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
                 #print('attack')
+#attack weapon
 #attack magic            
             if keys[pygame.K_RSHIFT]:
                 self.attacking = True
@@ -104,6 +106,7 @@ class Player(pygame.sprite.Sprite):
 
                 self.create_magic(style,strength,cost)
                 #print('magic')
+#attack magic            
             if keys[pygame.K_q] and self.can_switch_weapon:
                 self.can_switch_weapon = False
                 self.weapon_switch_time = pygame.time.get_ticks()
@@ -182,7 +185,7 @@ class Player(pygame.sprite.Sprite):
         if not self.can_switch_weapon:
             if current_time - self.weapon_switch_time >= self.switch_duration_cooldown:
                 self.can_switch_weapon = True
-                
+
         if not self.can_switch_magic:
             if current_time - self.magic_switch_time >= self.switch_duration_cooldown:
                 self.can_switch_magic = True

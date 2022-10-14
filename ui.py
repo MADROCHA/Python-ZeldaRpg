@@ -80,4 +80,4 @@ class UI:
 
         self.show_exp(player.exp)
         self.weapon_overlay(player.weapon_index,not player.can_switch_weapon) #weapons
-        self.magic_overlay(player.magic.magic_index, not player.can_switch_magic) #magic
+        self.magic_overlay(player.magic_index, not player.can_switch_magic) #magic
