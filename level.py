@@ -7,6 +7,7 @@ from support import *
 from random import choice
 from debug import debug
 from weapon import Weapon
+from ui import UI
 
 class Level:
     def __init__(self):
@@ -20,6 +21,9 @@ class Level:
         self.current_attack = None
         # sprite setup
         self.create_map()
+
+        # user interface UI
+        self.ui = UI()
 
     def create_map(self):
         layouts = {
@@ -73,6 +77,7 @@ class Level:
         self.visible_sprites.update()
         #debug(self.player.direction)
         debug(self.player.status)
+        self.ui.display(self.player)
 
 class YsortCamerGroup(pygame.sprite.Group):
     def __init__(self):
