@@ -8,6 +8,7 @@ from random import choice
 from debug import debug
 from weapon import Weapon
 from ui import UI
+from enemy import Enemy
 
 class Level:
     def __init__(self):
@@ -30,6 +31,7 @@ class Level:
             'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
             'grass': import_csv_layout('map/map_Grass.csv'),
             'object': import_csv_layout('map/map_LargeObjects.csv'),
+            'entities': import_csv_layout('map/map_Entities.csv'),
         }
         graphics = {
             'grass': import_folder('graphics/grass'),
@@ -52,6 +54,18 @@ class Level:
                         if style == 'object':
                             surf = graphics['objects'][int(col)]
                             Tile((x,y),[ self.visible_sprites,self.obstacles_sprites],'object',surf)
+                        if style == 'entities':
+                            if col == '394':
+                                self.player = Player(
+                                    (x,y),
+                                    [self.visible_sprites], 
+                                    self.obstacles_sprites, 
+                                    self.create_attack, 
+                                    self.destroy_attack,
+                                    self.create_magic,) 
+                            else:
+                                Enemy('monster',(x,y), [ self.visible_sprites])
+
         #for row_index, row in enumerate(WORLD_MAP):
         #    for col_index, col in enumerate(row):
         #        x= col_index * TILESIZE
@@ -60,13 +74,7 @@ class Level:
         #            Tile((x,y),[self.visible_sprites, self.obstacles_sprites])
         #        if col == 'p':
         #            self.player = Player((x,y),[self.visible_sprites], self.obstacles_sprites)
-        self.player = Player(
-            (2000,1430),
-            [self.visible_sprites], 
-            self.obstacles_sprites, 
-            self.create_attack, 
-            self.destroy_attack,
-            self.create_magic,) 
+
             #print(row_index)
             #print(row)
 
