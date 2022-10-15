@@ -29,6 +29,10 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_m:
+                        self.level.toggle_menu()
+
             self.screen.fill('black')
             self.level.run()
             # update window
