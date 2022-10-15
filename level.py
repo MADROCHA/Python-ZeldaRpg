@@ -1,5 +1,6 @@
 
 import pygame
+from particles import AnimationPlayer
 from tile import Tile
 from player import Player
 from settings import *
@@ -9,6 +10,7 @@ from debug import debug
 from weapon import Weapon
 from ui import UI
 from enemy import Enemy
+from particles import AnimationPlayer
 
 class Level:
     def __init__(self):
@@ -28,6 +30,9 @@ class Level:
 
         # user interface UI
         self.ui = UI()
+
+        # particles
+        self.animation_player = AnimationPlayer()
 
     def create_map(self):
         layouts = {
@@ -91,20 +96,9 @@ class Level:
                                     self.damage_player,
                                     )
 
-        #for row_index, row in enumerate(WORLD_MAP):
-        #    for col_index, col in enumerate(row):
-        #        x= col_index * TILESIZE
-        #        y= row_index * TILESIZE
-        #        if col == 'x':
-        #            Tile((x,y),[self.visible_sprites, self.obstacles_sprites])
-        #        if col == 'p':
-        #            self.player = Player((x,y),[self.visible_sprites], self.obstacles_sprites)
-
-            #print(row_index)
-            #print(row)
-
     def create_attack(self):
         self.current_attack = Weapon(self.player,[self.visible_sprites, self.attack_sprites ])
+    
     def create_magic(self,style,strength,cost):
         print(style)
         print(strength)
@@ -122,6 +116,8 @@ class Level:
                 if collision_sprites:
                     for target_sprite in collision_sprites:
                         if target_sprite.sprite_type == 'grass':
+                            pos = target_sprite.rect.center
+                            self.animation_player.create_grass_particles(pos,[self.visible_sprites])
                             target_sprite.kill()
                         else:
                             target_sprite.get_damage(self.player,attack_sprite.sprite_type)
