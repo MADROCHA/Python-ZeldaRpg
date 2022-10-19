@@ -16,6 +16,9 @@ class Game:
 
         self.level = Level()
 
+        main_sound = pygame.mixer.Sound('audio/main.ogg')
+        main_sound.play(loops = -1)
+
 
     def run(self):
         last_time = time.time()
@@ -33,7 +36,7 @@ class Game:
                     if event.key == pygame.K_m:
                         self.level.toggle_menu()
 
-            self.screen.fill('black')
+            self.screen.fill(WATER_COLOR)
             self.level.run()
             # update window
             pygame.display.update()

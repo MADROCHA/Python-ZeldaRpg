@@ -12,11 +12,13 @@ from ui import UI
 from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
+from upgrade import Upgrade
 
 class Level:
     def __init__(self):
         # get the display surface
         self.display_surface = pygame.display.get_surface()
+        self.game_paused = False
         # sprite group setup
         self.visible_sprites = YsortCamerGroup()
         self.obstacles_sprites = pygame.sprite.Group()
@@ -31,6 +33,7 @@ class Level:
 
         # user interface UI
         self.ui = UI()
+        self.upgrade = Upgrade(self.player)
 
         # particles
         self.animation_player = AnimationPlayer()
@@ -147,18 +150,26 @@ class Level:
 
     def trigger_death_particles(self,pos,particles_type):
         self.animation_player.create_particles(particles_type,pos,self.visible_sprites)
+    
     def add_exp(self,amount):
         self.player.exp += amount
 
+    def toggle_menu(self):
+        self.game_paused = not self.game_paused
+
     def run(self):
-        # update and draw the game
         self.visible_sprites.custom_draw(self.player)
-        self.visible_sprites.update()
-        #debug(self.player.direction)
-        self.visible_sprites.enemy_update(self.player)
-        self.player_attack_logic()
-        debug(self.player.status)
         self.ui.display(self.player)
+        debug(self.player.status)
+        if self.game_paused:
+            #display upgrade menu
+            self.upgrade.display()
+        else:
+            # update game
+            self.visible_sprites.update()
+            self.visible_sprites.enemy_update(self.player)
+            self.player_attack_logic()
+            #debug(self.player.direction)
 
 class YsortCamerGroup(pygame.sprite.Group):
     def __init__(self):
